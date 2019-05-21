@@ -1,0 +1,38 @@
+package graduation.client.fx;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.net.URL;
+
+public class ClientMain extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        URL url  = getClass().getClassLoader().getResource("client.fxml");
+        if (url != null) {
+            Parent root = FXMLLoader.load(url);
+            primaryStage.setTitle("Graduation Approval Client");
+
+            primaryStage.setOnCloseRequest(t -> {
+                Platform.exit();
+                System.exit(0);
+            });
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/client.png")));
+            primaryStage.setScene(new Scene(root, 500, 300));
+            primaryStage.show();
+        }else {
+            System.err.println("Error: Could not load frame from client.fxml");
+        }
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
