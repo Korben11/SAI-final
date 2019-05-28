@@ -20,6 +20,14 @@ class ListViewLine {
 		this.clientRequest = clientRequest;
 	}
 
+	public GraduationClientReply getClientReply() {
+		return clientReply;
+	}
+
+	public void setClientReply(GraduationClientReply clientReply) {
+		this.clientReply = clientReply;
+	}
+
 	@Override
 	public String toString() {
 	   return clientRequest.toString() + "  --->  " + ((clientReply !=null)? clientReply.toString():"waiting for reply...");

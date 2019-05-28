@@ -17,7 +17,7 @@ public final class Constants {
      *
      * Response:  {"graduationPhaseECs":30,"mentor":"Rafayel"}
      */
-    
+
     public static final String TCP_LOCALHOST_61616 = "tcp://localhost:61616";
     public static final String ORG_APACHE_ACTIVEMQ_JNDI_ACTIVE_MQINITIAL_CONTEXT_FACTORY = "org.apache.activemq.jndi.ActiveMQInitialContextFactory";
     public static final String QUEUE = "queue.";
@@ -28,8 +28,11 @@ public final class Constants {
     // GTE = GREATER THAN EQUAL
 
     // Queue names
-    public static final String CLIENT_REQUEST_QUEUE = "ClientRequestQueue";
-    public static final String CLIENT_RESPONSE_QUEUE = "ClientResponseQueue";
+    public static final String APPROVAL_CLIENT_REQUEST_QUEUE = "ApprovalClientRequestQueue";
+    public static final String APPROVAL_CLIENT_RESPONSE_QUEUE = "ApprovalClientResponseQueue";
+    public static final String STUDENT_CLIENT_REQUEST_QUEUE = "StudentClientRequestQueue";
+    public static final String STUDENT_CLIENT_RESPONSE_QUEUE = "StudentClientResponseQueue";
+
 
     public static final String AGGREGATION_ID = "aggregationId";
 
