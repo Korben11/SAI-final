@@ -1,10 +1,10 @@
 package graduation.client.fx;
 
-import graduation.client.model.GraduationClientRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import jmsmessenger.models.GraduationClientRequest;
 
 
 import java.net.URL;

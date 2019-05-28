@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graduation.approval.model;
+package jmsmessenger.models;
+
+import jmsmessenger.gateways.IRequest;
 
 /**
  *
  * @author 884294
  */
-public class GraduationApprovalRequest {
+public class GraduationApprovalRequest implements IRequest {
     
     private int studentNumber;       
     private String company;

@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graduation.approval.model;
+package jmsmessenger.models;
+
+import jmsmessenger.gateways.IResponse;
 
 /**
  *
  * @author 884294
  */
-public class GraduationApprovalReply {
+public class GraduationApprovalReply implements IResponse {
     private boolean approved;
     private String name;
 

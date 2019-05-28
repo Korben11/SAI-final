@@ -3,9 +3,21 @@ package jmsmessenger;
 public final class Constants {
 
     // services
-    public static final String HTTP_LOCALHOST_8080_CREDIT_REST_HISTORY = "http://localhost:8080/credit/rest/history/";
-    public static final String HTTP_LOCALHOST_8080_ARCHIVE_REST_ACCEPTED = "http://localhost:8080/archive/rest/accepted";
-
+    public static final String HTTP_LOCALHOST_8080_ADMINISTRATION_REST_STUDENTS = "http://localhost:8080/administration/rest/students/";
+    /**
+     *
+     * This service randomly generates student information, which consists of mentor name and gained ECs in the graduation phase (semester 7).
+     * Output format is JSON.
+     * The service can be accessed at http://localhost:8080/administration/rest/students/{studentNumber}.
+     *
+     * There are three cases for generating ECs:
+     *      Exactly 30 ECs are generated for student numbers in range 0..999. For example: http://localhost:8080/administration/rest/students/123
+     *      ECs in range [24..29] are randomly generated for student numbers in range 1000..9999. For example: http://localhost:8080/administration/rest/students/1234
+     *      ECs in range [0..25] are randomly generated for student numbers higher than 10000. For example: http://localhost:8080/administration/rest/students/12345
+     *
+     * Response:  {"graduationPhaseECs":30,"mentor":"Rafayel"}
+     */
+    
     public static final String TCP_LOCALHOST_61616 = "tcp://localhost:61616";
     public static final String ORG_APACHE_ACTIVEMQ_JNDI_ACTIVE_MQINITIAL_CONTEXT_FACTORY = "org.apache.activemq.jndi.ActiveMQInitialContextFactory";
     public static final String QUEUE = "queue.";

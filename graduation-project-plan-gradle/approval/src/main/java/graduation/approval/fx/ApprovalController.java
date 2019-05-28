@@ -1,10 +1,10 @@
 package graduation.approval.fx;
 
-import graduation.approval.model.GraduationApprovalReply;
-import graduation.approval.model.GraduationApprovalRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import jmsmessenger.models.GraduationApprovalReply;
+import jmsmessenger.models.GraduationApprovalRequest;
 
 @SuppressWarnings("unused")
 class ApprovalController {

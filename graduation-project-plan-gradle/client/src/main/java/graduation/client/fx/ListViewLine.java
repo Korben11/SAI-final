@@ -1,8 +1,7 @@
 package graduation.client.fx;
 
-
-import graduation.client.model.GraduationClientReply;
-import graduation.client.model.GraduationClientRequest;
+import jmsmessenger.models.GraduationClientReply;
+import jmsmessenger.models.GraduationClientRequest;
 
 class ListViewLine {
 	

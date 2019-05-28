@@ -1,8 +1,8 @@
 package graduation.approval.fx;
 
 
-import graduation.approval.model.GraduationApprovalReply;
-import graduation.approval.model.GraduationApprovalRequest;
+import jmsmessenger.models.GraduationApprovalReply;
+import jmsmessenger.models.GraduationApprovalRequest;
 
 /**
  * This class is an item/line for a ListViewLine. It makes it possible to put both approvalRequest and approvalReply object in one item in a ListViewLine.
