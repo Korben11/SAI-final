@@ -15,7 +15,15 @@ class ListViewLine {
 	public ListViewLine(GraduationApprovalRequest graduationApprovalRequest) {
 		setApprovalRequest(graduationApprovalRequest);
 	}
-	
+
+	public GraduationApprovalReply getApprovalReply() {
+		return approvalReply;
+	}
+
+	public void setApprovalReply(GraduationApprovalReply approvalReply) {
+		this.approvalReply = approvalReply;
+	}
+
 	public GraduationApprovalRequest getApprovalRequest() {
 		return approvalRequest;
 	}

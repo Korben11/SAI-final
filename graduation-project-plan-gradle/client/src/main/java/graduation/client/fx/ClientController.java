@@ -48,6 +48,7 @@ public class ClientController implements Initializable {
 
     @FXML
     private void btnSendRequestClicked() {
+        if (!lvRequestReply.hasProperties()) return;
         // create the GraduationClientRequest
         int studentNumber = Integer.parseInt(tfStudentNumber.getText());
         String company = tfCompany.getText();
