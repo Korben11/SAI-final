@@ -45,15 +45,14 @@ public final class Constants {
     // Rules
     // LTE = LESS THAN EQUAL
     // GTE = GREATER THAN EQUAL
-    private String rule = "'#{mentor}' == 'BERT' && #{ecs} >= 24 && #{ecs} <= 29";
     private static final String ECS = "#{ecs} >= 24 && #{ecs} <= 29";
-    public static final String GRAD_COORDINATOR_ECS = "'#{mentor}' == 'GRAD_COORDINATOR' && #{ecs} >= 24";
+    public static final String GRAD_COORDINATOR_ECS = "#{ecs} >= 24";
     public static final String BERT_ECS = "'#{mentor}' == 'BERT' && " + ECS;
-    public static final String RAFAYEL_ECS = "'#{mentor}' == 'BERT' && " + ECS;
-    public static final String CHUNG_ECS = "'#{mentor}' == 'BERT' && " + ECS;
+    public static final String RAFAYEL_ECS = "'#{mentor}' == 'RAFAYEL' && " + ECS;
+    public static final String CHUNG_ECS = "'#{mentor}' == 'CHUNG' && " + ECS;
 
     // Approvals
-    public static enum APPROVAL {
+    public enum APPROVAL {
         GRAD_COORDINATOR,
         CHUNG,
         BERT,
