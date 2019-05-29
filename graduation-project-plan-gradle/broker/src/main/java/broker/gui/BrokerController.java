@@ -4,16 +4,14 @@ import content.enricher.StudentInfo;
 import content.enricher.StudentInfoContentEnricher;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import jmsmessenger.Constants;
 import jmsmessenger.gateways.AsyncReceiverGateway;
-import jmsmessenger.gateways.AsyncSenderGateway;
 import jmsmessenger.gateways.IRequest;
 import jmsmessenger.gateways.IResponse;
-import jmsmessenger.models.GraduationApprovalReply;
 import jmsmessenger.models.GraduationApprovalRequest;
 import jmsmessenger.models.GraduationClientReply;
 import jmsmessenger.models.GraduationClientRequest;
 import jmsmessenger.serializers.GsonSerializer;
+import scattergetter.ScatterGetter;
 
 import static jmsmessenger.Constants.STUDENT_CLIENT_REQUEST_QUEUE;
 import static jmsmessenger.Constants.HTTP_LOCALHOST_8080_ADMINISTRATION_REST_STUDENTS;
@@ -26,13 +24,11 @@ public class BrokerController implements Initializable {
 
     public ListView<ListViewLine> lvBroker;
 
-    // Map to store bank request messageId (correlationId for reply from bank)
-    public Map<IRequest, ListViewLine> map;
+    public Map<GraduationApprovalRequest, ListViewLine> map;
 
     // Gateways
     private AsyncReceiverGateway studentGateway;
-    private AsyncSenderGateway approvalGateway;
-//    private ScatterGetter scatterGetter;
+    private ScatterGetter scatterGetter;
 
     private StudentInfoContentEnricher studentInfoContentEnricher;
 
@@ -60,26 +56,28 @@ public class BrokerController implements Initializable {
                 map.put(graduationApprovalRequest, listViewLine);
 
                 // send to approval
-                for (Constants.APPROVAL approval : Constants.APPROVAL.values()) {
-                    approvalGateway.sendRequest(graduationApprovalRequest, approval + Constants.APPROVAL_CLIENT_REQUEST_QUEUE, null);
-                }
+                int passed = scatterGetter.applyForApproval(graduationApprovalRequest);
+
+                if (passed > 0)
+                    return;
+
+                // refuse
+                GraduationClientReply graduationClientReply = new GraduationClientReply(false, "Not enough ECs: " + graduationApprovalRequest.getEcs());
+                listViewLine.setGraduationClientReply(graduationClientReply);
+                studentGateway.sendReply(request, graduationClientReply);
+                lvBroker.refresh();
             }
         };
 
-        approvalGateway = new AsyncSenderGateway(new GsonSerializer(GraduationApprovalRequest.class, GraduationApprovalReply.class), Constants.APPROVAL_CLIENT_RESPONSE_QUEUE, null) {
+        scatterGetter = new ScatterGetter() {
             @Override
-            public void onMessageArrived(IRequest request, IResponse response, Integer aggregationId) {
-                // get and add response to list view
+            public void onResponseSelected(GraduationApprovalRequest request, GraduationClientReply response) {
                 ListViewLine listViewLine = map.get(request);
-                GraduationApprovalReply graduationApprovalReply = (GraduationApprovalReply) response;
-                listViewLine.setGraduationApprovalReply(graduationApprovalReply);
-                GraduationClientReply graduationClientReply = new GraduationClientReply(graduationApprovalReply.isApproved(), graduationApprovalReply.getName());
-                listViewLine.setGraduationClientReply(graduationClientReply);
-
+                listViewLine.setGraduationClientReply(response);
                 lvBroker.refresh();
 
                 // send reply to student
-                studentGateway.sendReply(listViewLine.getGraduationClientRequest(), graduationClientReply);
+                studentGateway.sendReply(listViewLine.getGraduationClientRequest(), response);
             }
         };
     }

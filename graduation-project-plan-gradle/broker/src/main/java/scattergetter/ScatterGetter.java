@@ -1,12 +1,12 @@
 package scattergetter;
 
-import broker.gui.ListViewLine;
 import jmsmessenger.Constants;
 import jmsmessenger.gateways.AsyncSenderGateway;
 import jmsmessenger.gateways.IRequest;
 import jmsmessenger.gateways.IResponse;
 import jmsmessenger.models.GraduationApprovalReply;
 import jmsmessenger.models.GraduationApprovalRequest;
+import jmsmessenger.models.GraduationClientReply;
 import jmsmessenger.serializers.GsonSerializer;
 
 import java.util.HashMap;
@@ -18,22 +18,22 @@ public abstract class ScatterGetter {
     private ApprovalRecipientList recipientList;
     private Aggregator aggregator;
 
-    private Map<Integer, IRequest> mapAggregationIdToRequest;
+    private Map<Integer, GraduationApprovalRequest> mapAggregationIdToRequest;
 
     public ScatterGetter() {
         mapAggregationIdToRequest = new HashMap<>();
 
         aggregator = new Aggregator() {
             @Override
-            public void onAllRepliesReceived(IResponse response, Integer aggregationId) {
-                onReplySelected(mapAggregationIdToRequest.get(aggregationId), response);
+            public void onAllRepliesReceived(GraduationClientReply response, Integer aggregationId) {
+                onResponseSelected(mapAggregationIdToRequest.get(aggregationId), response);
             }
         };
 
         approvalGateway = new AsyncSenderGateway(new GsonSerializer(GraduationApprovalRequest.class, GraduationApprovalReply.class), Constants.APPROVAL_CLIENT_RESPONSE_QUEUE, null) {
             @Override
             public void onMessageArrived(IRequest request, IResponse response, Integer aggregationId) {
-                if (!mapAggregationIdToRequest.containsKey(aggregationId)) mapAggregationIdToRequest.put(aggregationId, request);
+                if (!mapAggregationIdToRequest.containsKey(aggregationId)) mapAggregationIdToRequest.put(aggregationId, (GraduationApprovalRequest) request);
                 aggregator.addReply(response, aggregationId);
             }
         };
@@ -51,5 +51,5 @@ public abstract class ScatterGetter {
         return passed;
     }
 
-    public abstract void onReplySelected(IRequest request, IResponse response);
+    public abstract void onResponseSelected(GraduationApprovalRequest request, GraduationClientReply response);
 }

@@ -57,5 +57,5 @@ public abstract class Aggregator {
         return mapAggIdToResponses.get(aggregatorId).size();
     }
 
-    public abstract void onAllRepliesReceived(IResponse response, Integer aggregationId);
+    public abstract void onAllRepliesReceived(GraduationClientReply response, Integer aggregationId);
 }
