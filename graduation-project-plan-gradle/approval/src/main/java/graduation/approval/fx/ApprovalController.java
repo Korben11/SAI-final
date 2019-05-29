@@ -44,18 +44,24 @@ class ApprovalController {
         GraduationApprovalReply graduationApprovalReply = new GraduationApprovalReply(isAccepted, approvalName);
 
         ListViewLine listViewLine = lvApprovalRequestReply.getSelectionModel().getSelectedItem();
-        if (listViewLine != null) {
-            GraduationApprovalRequest graduationApprovalRequest = listViewLine.getApprovalRequest();
-            listViewLine.setApprovalReply(graduationApprovalReply);
-
-            gateway.sendReply(listViewLine.getApprovalRequest(), graduationApprovalReply);
-
-            lvApprovalRequestReply.refresh();
-
-            System.out.println("Approval application " + approvalName + " is sending " + graduationApprovalReply + " for " + graduationApprovalRequest);
-        } else {
+        if (listViewLine == null) {
             System.err.println("Please select one request in the list!");
+            return;
         }
+
+        if (listViewLine.getApprovalReply() != null) {
+            System.err.println("Reply already send!");
+            return;
+        }
+
+        GraduationApprovalRequest graduationApprovalRequest = listViewLine.getApprovalRequest();
+        listViewLine.setApprovalReply(graduationApprovalReply);
+
+        gateway.sendReply(listViewLine.getApprovalRequest(), graduationApprovalReply);
+
+        lvApprovalRequestReply.refresh();
+
+        System.out.println("Approval application " + approvalName + " is sending " + graduationApprovalReply + " for " + graduationApprovalRequest);
     }
 
     /**
