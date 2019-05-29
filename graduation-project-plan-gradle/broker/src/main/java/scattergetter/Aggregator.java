@@ -32,18 +32,20 @@ public abstract class Aggregator {
     }
 
     private void checkReplies(Integer aggregatorId) {
-        if (!mapAggIdToSentCount.get(aggregatorId).equals(this.getNrOfReplies(aggregatorId))){
+        if (!mapAggIdToSentCount.get(aggregatorId).equals(this.getNrOfReplies(aggregatorId))) {
             return;
         }
 
         GraduationClientReply graduationClientReply = null;
-        for(IResponse response: mapAggIdToResponses.get(aggregatorId)) {
+        for (IResponse response : mapAggIdToResponses.get(aggregatorId)) {
             if (graduationClientReply == null) {
-                graduationClientReply = new GraduationClientReply(((GraduationApprovalReply)response).isApproved(), ((GraduationApprovalReply)response).getName());
+                graduationClientReply = new GraduationClientReply(((GraduationApprovalReply) response).isApproved(), ((GraduationApprovalReply) response).getName());
                 continue;
             }
-            GraduationApprovalReply graduationApprovalReply = (GraduationApprovalReply)response;
-            if (graduationApprovalReply.isApproved()) { continue;}
+            GraduationApprovalReply graduationApprovalReply = (GraduationApprovalReply) response;
+            if (graduationApprovalReply.isApproved()) {
+                continue;
+            }
             graduationClientReply.setApproved(false);
             graduationClientReply.setRejectedBy(graduationClientReply.getRejectedBy() + " " + graduationApprovalReply.getName());
         }
