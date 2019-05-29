@@ -34,7 +34,9 @@ public class ClientController implements Initializable {
 
     AsyncSenderGateway gateway;
 
-    public ClientController(String clientId) {
+    public ClientController() {}
+
+    public void initGateway(String clientId) {
         this.clientId = clientId;
         gateway = new AsyncSenderGateway(new GsonSerializer(GraduationClientRequest.class, GraduationClientReply.class), STUDENT_CLIENT_RESPONSE_QUEUE + clientId, STUDENT_CLIENT_REQUEST_QUEUE) {
             @Override
@@ -48,7 +50,7 @@ public class ClientController implements Initializable {
 
     @FXML
     private void btnSendRequestClicked() {
-        if (!lvRequestReply.hasProperties()) return;
+
         // create the GraduationClientRequest
         int studentNumber = Integer.parseInt(tfStudentNumber.getText());
         String company = tfCompany.getText();

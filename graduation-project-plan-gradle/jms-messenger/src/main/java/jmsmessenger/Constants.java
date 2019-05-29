@@ -27,6 +27,14 @@ public final class Constants {
     // LTE = LESS THAN EQUAL
     // GTE = GREATER THAN EQUAL
 
+    // Approvals
+    public static enum APPROVAL {
+        GRAD_COORDINATOR,
+        CHUNG,
+        BERT,
+        RAFAYEL,
+    }
+
     // Queue names
     public static final String APPROVAL_CLIENT_REQUEST_QUEUE = "ApprovalClientRequestQueue";
     public static final String APPROVAL_CLIENT_RESPONSE_QUEUE = "ApprovalClientResponseQueue";

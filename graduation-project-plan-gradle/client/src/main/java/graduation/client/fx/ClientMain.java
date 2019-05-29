@@ -17,22 +17,13 @@ public class ClientMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        primaryStage.setOnCloseRequest(t -> {
-            Platform.exit();
-            System.exit(0);
-        });
-
         URL url  = getClass().getClassLoader().getResource("client.fxml");
         if (url != null) {
-            FXMLLoader loader = new FXMLLoader(url);
-
-            // Create and set controller instance
-
-            ClientController controller = new ClientController(name);
-            // Set it in the FXMLLoader
-            loader.setController(controller);
-
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("client.fxml"));
             Parent root = loader.load();
+
+            ClientController clientController = loader.getController();
+            clientController.initGateway(name);
 
             primaryStage.setTitle("Graduation Approval Client " + name);
 

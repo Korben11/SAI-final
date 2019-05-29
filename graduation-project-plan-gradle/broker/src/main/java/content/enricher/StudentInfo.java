@@ -7,6 +7,14 @@ public class StudentInfo implements IResponse, IRequest {
     public int graduationPhaseECs;
     public String mentor;
 
+    @Override
+    public String toString() {
+        return "StudentInfo{" +
+                "graduationPhaseECs=" + graduationPhaseECs +
+                ", mentor='" + mentor + '\'' +
+                '}';
+    }
+
     public int getGraduationPhaseECs() {
         return graduationPhaseECs;
     }
